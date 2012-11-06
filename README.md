@@ -1,4 +1,4 @@
 imgA
 ====
 
-A jQuery Plugin to do animation of images 
+A jQuery Plugin to simulate animation from a set of images 
