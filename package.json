@@ -1,0 +1,18 @@
+{
+  "name": "imga",
+  "description": "Creates animated images (when gifs aren't enought)",
+  "version": "0.0.0",
+  "dependencies": {},
+  "devDependencies" : {
+    "mocha" : "*",
+    "grunt-mocha-test": "*",
+    "chai" : "*",
+    "sinon" : "*",
+    "grunt" : "*",
+    "grunt-contrib-coffee": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-connect": "*",
+    "grunt-contrib-watch": "*",
+    "load-grunt-tasks": "*"
+  }
+}

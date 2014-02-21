@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "imgasprite.js",
+  "sourceRoot": "src/",
+  "sources": [
+    "imgasprite.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA,MAAA,UAAA;IAAA;mSAAA;;AAAA,EAAM;AACJ,iCAAA,CAAA;;AAAa,IAAA,oBAAA,GAAA;AACX,aAAO,IAAP,CADW;IAAA,CAAb;;sBAAA;;KADuB,eAAzB,CAAA;;AAIA,EAAA,uDAAG,MAAM,CAAE,gBAAX;AACE,IAAA,OAAO,CAAC,UAAR,GAAqB,UAArB,CADF;GAAA,MAAA;AAGE,IAAA,MAAM,CAAC,UAAP,GAAoB,UAApB,CAHF;GAJA;AAAA"
+}
