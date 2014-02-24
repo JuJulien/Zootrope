@@ -2,55 +2,139 @@
   var ImgA;
 
   ImgA = (function() {
-    ImgA.prototype._controller = new ImgASprite();
+    ImgA.prototype._current = 0;
 
-    function ImgA(controller) {
-      var e;
-      if (controller != null) {
-        this._controller = controller;
+    ImgA.prototype._duration = 0;
+
+    ImgA.prototype._ended = false;
+
+    ImgA.prototype._paused = true;
+
+    ImgA.prototype._readyState = false;
+
+    ImgA.prototype._reverse = false;
+
+    ImgA.prototype._el = "#imga";
+
+    ImgA.prototype._src = '/img/imga.jpg';
+
+    ImgA.prototype._autoplay = true;
+
+    ImgA.prototype._fps = 30;
+
+    ImgA.prototype._autoloop = true;
+
+    function ImgA(controller, options) {
+      var _autoplay, _el, _src;
+      if (options && typeof options !== "object") {
+        throw new Error("the Options argument must be a valid object");
       }
-      try {
-        this.isValidController(this._controller);
-      } catch (_error) {
-        e = _error;
-        console.error(e);
-        return;
+      if (!controller) {
+        throw new Error("A valid controller must be provided");
       }
-      this;
+      this.controller = controller;
+      this.isValidController(this.controller);
+      this.controller._parent = this;
+      if (options) {
+        if (options.el) {
+          _el = options.el;
+        }
+        if (options.src) {
+          if (typeof options.src === "string" || options.src instanceof Array) {
+            _src = options.src;
+          } else {
+            throw new TypeError("options.src expected to be a string or an array: " + typeof options.src + " given");
+          }
+        }
+        if (typeof options.autoplay === "boolean") {
+          _autoplay = options.autoplay;
+        }
+        if (options.fps) {
+          this.setFps(options.fps);
+        }
+        if (options.autoloop) {
+          this.setAutoloop(options.autoloop);
+        }
+      }
+      return this;
     }
 
+    ImgA.prototype.load = function() {
+      return this;
+    };
+
+    ImgA.prototype.getCurrent = function() {
+      return this._current;
+    };
+
+    ImgA.prototype.setCurrent = function(current) {
+      current = parseInt(current);
+      if (!(typeof current === "number" && !isNaN(current))) {
+        throw new TypeError("ImgAController.setFps() argument expected to be a number: " + typeof current + " given (" + current + ")");
+      }
+      this._current = current;
+      return this;
+    };
+
+    ImgA.prototype.getFps = function() {
+      return this._fps;
+    };
+
+    ImgA.prototype.setFps = function(fps) {
+      fps = parseInt(fps);
+      if (!(typeof fps === "number" && !isNaN(fps))) {
+        throw new TypeError("ImgAController.setFps() argument expected to be a number: " + typeof fps + " given (" + fps + ")");
+      }
+      this._fps = fps;
+      return this;
+    };
+
+    ImgA.prototype.getAutoloop = function() {
+      return this._autoloop;
+    };
+
+    ImgA.prototype.setAutoloop = function(autoloop) {
+      if (typeof autoloop !== "boolean") {
+        throw new TypeError("ImgAController.setAutoloop() argument expected to be a boolean: " + typeof autoloop + " given");
+      }
+      this._autoloop = autoloop;
+      return this;
+    };
+
     ImgA.prototype.play = function() {
-      this._controller.play();
+      this.controller.play();
       return this;
     };
 
     ImgA.prototype.stop = function() {
-      this._controller.stop();
+      this.controller.stop();
       return this;
     };
 
     ImgA.prototype.previous = function() {
-      this._controller.previous();
+      this.controller.goTo(this._current - 1);
       return this;
     };
 
     ImgA.prototype.next = function() {
-      this._controller.next();
+      this.controller.goTo(this._current + 1);
+      return this;
+    };
+
+    ImgA.prototype.goTo = function(frame) {
+      this.controller.goTo(frame);
       return this;
     };
 
     ImgA.prototype.isValidController = function(controller) {
       if (!((controller != null ? typeof controller.play === "function" ? controller.play() : void 0 : void 0) instanceof ImgAController)) {
-        throw "You must provide a valid controller: it must implement a method `play()` which return the controller instance: " + (typeof (controller != null ? typeof controller.play === "function" ? controller.play() : void 0 : void 0));
+        throw new TypeError("You must provide a valid controller: it must implement a method `play()` which return the controller instance; " + (typeof (controller != null ? typeof controller.play === "function" ? controller.play() : void 0 : void 0)) + " given");
       }
       if (!((controller != null ? typeof controller.stop === "function" ? controller.stop() : void 0 : void 0) instanceof ImgAController)) {
-        throw "You must provide a valid controller: it must implement a method `stop()` which return the controller instance: " + (typeof (controller != null ? typeof controller.stop === "function" ? controller.stop() : void 0 : void 0));
+        throw new TypeError("You must provide a valid controller: it must implement a method `stop()` which return the controller instance; " + (typeof (controller != null ? typeof controller.stop === "function" ? controller.stop() : void 0 : void 0)) + " given");
       }
-      if (!((controller != null ? typeof controller.previous === "function" ? controller.previous() : void 0 : void 0) instanceof ImgAController)) {
-        throw "You must provide a valid controller: it must implement a method `previous()` which return the controller instance: " + (typeof (controller != null ? typeof controller.previous === "function" ? controller.previous() : void 0 : void 0));
-      }
-      if (!((controller != null ? typeof controller.next === "function" ? controller.next() : void 0 : void 0) instanceof ImgAController)) {
-        throw "You must provide a valid controller: it must implement a method `next()` which return the controller instance: " + (typeof (controller != null ? typeof controller.next === "function" ? controller.next() : void 0 : void 0));
+      if (!((controller != null ? typeof controller.goTo === "function" ? controller.goTo(0) : void 0 : void 0) instanceof ImgAController)) {
+        throw new TypeError("You must provide a valid controller: it must implement a method `goTo()` which return the controller instance; " + (typeof (controller != null ? typeof controller.goTo === "function" ? controller.goTo(0) : void 0 : void 0)) + " given");
       }
     };
 

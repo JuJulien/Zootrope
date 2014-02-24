@@ -7,6 +7,9 @@
 <body>
     <section>
         <h1>Yo ImgA !</h1>
+        <div id="imga">
+            Alternate content
+        </div>
     </section>
 
     <script src="../imgacontroller.js"></script>
@@ -14,7 +17,7 @@
     <script src="../imgalist.js"></script>
     <script src="../imga.js"></script>
     <script>
-            var imgASprite = new ImgA();
+            var imgASprite = new ImgA(new ImgASprite());
             var imgAList = new ImgA(new ImgAList());
     </script>
 </body>

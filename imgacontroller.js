@@ -2,7 +2,10 @@
   var ImgAController;
 
   ImgAController = (function() {
-    function ImgAController() {
+    ImgAController.prototype._current = 0;
+
+    function ImgAController(_parent) {
+      this._parent = _parent;
       return this;
     }
 
@@ -14,11 +17,15 @@
       return this;
     };
 
-    ImgAController.prototype.previous = function() {
-      return this;
-    };
-
-    ImgAController.prototype.next = function() {
+    ImgAController.prototype.goTo = function(frame) {
+      var _ref;
+      if (!frame) {
+        frame = 0;
+      }
+      this._current++;
+      if ((_ref = this._parent) != null) {
+        _ref._current = frame;
+      }
       return this;
     };
 

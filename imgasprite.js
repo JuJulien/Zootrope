@@ -7,6 +7,7 @@
     __extends(ImgASprite, _super);
 
     function ImgASprite() {
+      ImgASprite.__super__.constructor.apply(this, arguments);
       return this;
     }
 

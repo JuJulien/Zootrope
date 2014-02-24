@@ -1,44 +1,118 @@
 class ImgA
-  _controller: new ImgASprite()
-  constructor: (controller) ->
-    if controller?
-      @_controller = controller
+  # Animation properties
+  _current: 0 # The current playback position in the animation (in frame)
+  _duration: 0 # The duration of the entire animation (in frame)
+  _ended: false # The playback of the animation has not ended
+  _paused: true # The animation is paused
+  _readyState: false # The current ready state of the Animation
+  _reverse: false # switch video playback backward
 
-    try
-      @isValidController(@_controller)
-    catch e
-      console.error e
-      return
-    @
+  # Options
+  _el: "#imga" # The animation container (dom selector)
+  _src: '/img/imga.jpg' # The source files path
+  _autoplay: true # The animation should start playing as soon as it is loaded
+  _fps: 30 # The current frame rate
+  _autoloop: true # The animation should start over again when finished
 
+  # Events
+  # loadstart: Fires when the browser starts looking for the src files
+  # pause: Fires when the animation has been paused
+  # play: Fires when the animation has been started or is no longer paused
+  # progress: Fires when the browser is downloading the animation
+  # frameupdate: Fires when the current playback position has changed
+
+  constructor: ( controller, options) ->
+    if options && typeof options != "object"
+      throw  new Error "the Options argument must be a valid object"
+    if !controller
+      throw new Error "A valid controller must be provided"
+
+    # Initialize controller
+    @controller = controller
+    # Check if the controller has a valid interface
+    @isValidController(@controller)
+    @controller._parent = @
+
+    if options
+      # Initialize configuration
+      _el = options.el if options.el
+      if options.src
+        if (typeof(options.src) == "string" || options.src instanceof Array)
+          _src = options.src
+        else throw new TypeError("options.src expected to be a string or an array: "+typeof(options.src)+" given")
+      _autoplay = options.autoplay if typeof options.autoplay == "boolean"
+      @setFps(options.fps) if options.fps
+      @setAutoloop(options.autoloop) if options.autoloop
+
+    return @
+
+  # Load sources
+  load: ->
+    return @
+
+  getCurrent: () ->
+    @_current
+
+  setCurrent: (current) ->
+    current = parseInt(current)
+    unless typeof current == "number" && !isNaN(current)
+      throw new TypeError "ImgAController.setFps() argument expected to be a number: "+typeof(current)+" given (" + current+")"
+    @_current = current
+    return @
+
+  getFps: () ->
+    @_fps
+
+  setFps: (fps) ->
+    fps = parseInt(fps)
+    unless typeof fps == "number" && !isNaN(fps)
+      throw new TypeError "ImgAController.setFps() argument expected to be a number: "+typeof(fps)+" given (" + fps+")"
+    @_fps = fps
+    return @
+
+  getAutoloop: () ->
+    @_autoloop
+
+  setAutoloop: (autoloop) ->
+    unless typeof autoloop =="boolean"
+      throw new TypeError("ImgAController.setAutoloop() argument expected to be a boolean: "+typeof(autoloop)+" given")
+    @_autoloop = autoloop
+    return @
+
+  # start playback
   play: ->
-    @_controller.play()
-    @
+    @controller.play()
+    return @
 
+  # stop playback
   stop: ->
-    @_controller.stop()
-    @
+    @controller.stop()
+    return @
 
+  # Go to previous frame
   previous: ->
-    @_controller.previous()
-    @
+    @controller.goTo(@_current-1)
+    return @
 
+  # Go to next frame
   next: ->
-    @_controller.next()
-    @
+    @controller.goTo(@_current+1)
+    return @
+
+  # Go to frame
+  goTo: (frame)->
+    @controller.goTo(frame)
+    return @
 
   isValidController: (controller) ->
     unless controller?.play?() instanceof ImgAController
-      throw "You must provide a valid controller: it must implement a method `play()` which return the controller instance: " + (typeof controller?.play?())
+      throw new TypeError("You must provide a valid controller: it must implement a method `play()` which return the controller instance; " + (typeof controller?.play?()) + " given")
 
     unless controller?.stop?() instanceof ImgAController
-      throw "You must provide a valid controller: it must implement a method `stop()` which return the controller instance: " + (typeof controller?.stop?())
+      throw new TypeError("You must provide a valid controller: it must implement a method `stop()` which return the controller instance; " + (typeof controller?.stop?()) + " given")
 
-    unless controller?.previous?() instanceof ImgAController
-      throw "You must provide a valid controller: it must implement a method `previous()` which return the controller instance: " + (typeof controller?.previous?())
-
-    unless controller?.next?() instanceof ImgAController
-      throw "You must provide a valid controller: it must implement a method `next()` which return the controller instance: " + (typeof controller?.next?())
+    unless controller?.goTo?(0) instanceof ImgAController
+      throw new TypeError("You must provide a valid controller: it must implement a method `goTo()` which return the controller instance; " + (typeof controller?.goTo?(0)) + " given")
 
 if module?.exports
   exports.ImgA = ImgA

@@ -1,5 +1,6 @@
 class ImgASprite extends ImgAController
   constructor: ->
+    super
     return @
 
 if module?.exports

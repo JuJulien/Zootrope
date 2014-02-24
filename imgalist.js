@@ -7,12 +7,9 @@
     __extends(ImgAList, _super);
 
     function ImgAList() {
+      ImgAList.__super__.constructor.apply(this, arguments);
       return this;
     }
-
-    ImgAList.prototype.method = function() {
-      return 4;
-    };
 
     return ImgAList;
 
