@@ -7,18 +7,22 @@
 <body>
     <section>
         <h1>Yo Zootrope !</h1>
-        <div id="zootrope">
-            Alternate content
+        <div id="zootropeList">
+            List Alternate content
+        </div>
+        <div id="zootropeSprite">
+            Sprite Alternate content
         </div>
     </section>
 
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../zootropecontroller.js"></script>
     <script src="../zootropesprite.js"></script>
     <script src="../zootropelist.js"></script>
     <script src="../zootrope.js"></script>
     <script>
-            var Sprite = new Zootrope(new ZootropeSprite());
-            var List = new Zootrope(new ZootropeList());
+            var list = new Zootrope(new ZootropeList(), {"el": "#zootropeList"});
+            // var sprite = new Zootrope(new ZootropeSprite(), {"_el": "#zootropeSprite"});
     </script>
 </body>
 </html>

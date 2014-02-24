@@ -1,2 +1,4 @@
+.DS_Store
+
 node_modules
-_bower_components
+bower_components

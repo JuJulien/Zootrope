@@ -21,6 +21,13 @@ class Zootrope
   # progress: Fires when the browser is downloading the animation
   # frameupdate: Fires when the current playback position has changed
 
+  # The Controller must be a valid controller (extends ZootropeController)
+  # options:
+  #   el: A jQuery dom selector
+  #   src: A path or an array of paths to the files
+  #   fps: A number
+  #   autoplay: A boolean
+  #   autoloop: A boolean
   constructor: ( controller, options) ->
     if options && typeof options != "object"
       throw  new Error "the Options argument must be a valid object"
@@ -35,15 +42,21 @@ class Zootrope
 
     if options
       # Initialize configuration
-      _el = options.el if options.el
+      @_el = options.el if options.el
+
+
       if options.src
         if (typeof(options.src) == "string" || options.src instanceof Array)
-          _src = options.src
+          @_src = options.src
         else throw new TypeError("options.src expected to be a string or an array: "+typeof(options.src)+" given")
-      _autoplay = options.autoplay if typeof options.autoplay == "boolean"
+      @_autoplay = options.autoplay if typeof options.autoplay == "boolean"
       @setFps(options.fps) if options.fps
       @setAutoloop(options.autoloop) if options.autoloop
 
+    @$el = $(@_el)
+    console.log @$el
+    unless @$el.length
+      throw new TypeError("Couldn't find container: "+@_el)
     return @
 
   # Load sources
@@ -113,6 +126,9 @@ class Zootrope
 
     unless controller?.goTo?(0) instanceof ZootropeController
       throw new TypeError("You must provide a valid controller: it must implement a method `goTo()` which return the controller instance; " + (typeof controller?.goTo?(0)) + " given")
+
+  clean: () ->
+    @$el.empty()
 
 if module?.exports
   exports.Zootrope = Zootrope

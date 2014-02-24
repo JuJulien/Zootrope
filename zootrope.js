@@ -25,7 +25,6 @@
     Zootrope.prototype._autoloop = true;
 
     function Zootrope(controller, options) {
-      var _autoplay, _el, _src;
       if (options && typeof options !== "object") {
         throw new Error("the Options argument must be a valid object");
       }
@@ -37,17 +36,17 @@
       this.controller._parent = this;
       if (options) {
         if (options.el) {
-          _el = options.el;
+          this._el = options.el;
         }
         if (options.src) {
           if (typeof options.src === "string" || options.src instanceof Array) {
-            _src = options.src;
+            this._src = options.src;
           } else {
             throw new TypeError("options.src expected to be a string or an array: " + typeof options.src + " given");
           }
         }
         if (typeof options.autoplay === "boolean") {
-          _autoplay = options.autoplay;
+          this._autoplay = options.autoplay;
         }
         if (options.fps) {
           this.setFps(options.fps);
@@ -55,6 +54,11 @@
         if (options.autoloop) {
           this.setAutoloop(options.autoloop);
         }
+      }
+      this.$el = $(this._el);
+      console.log(this.$el);
+      if (!this.$el.length) {
+        throw new TypeError("Couldn't find container: " + this._el);
       }
       return this;
     }
@@ -136,6 +140,10 @@
       if (!((controller != null ? typeof controller.goTo === "function" ? controller.goTo(0) : void 0 : void 0) instanceof ZootropeController)) {
         throw new TypeError("You must provide a valid controller: it must implement a method `goTo()` which return the controller instance; " + (typeof (controller != null ? typeof controller.goTo === "function" ? controller.goTo(0) : void 0 : void 0)) + " given");
       }
+    };
+
+    Zootrope.prototype.clean = function() {
+      return this.$el.empty();
     };
 
     return Zootrope;
