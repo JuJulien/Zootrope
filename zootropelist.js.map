@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "zootropelist.js",
+  "sourceRoot": "src/",
+  "sources": [
+    "zootropelist.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA,MAAA,YAAA;IAAA;mSAAA;;AAAA,EAAM;AACJ,mCAAA,CAAA;;AAAa,IAAA,sBAAA,GAAA;AACX,MAAA,+CAAA,SAAA,CAAA,CAAA;AACA,aAAO,IAAP,CAFW;IAAA,CAAb;;wBAAA;;KADyB,mBAA3B,CAAA;;AAKA,EAAA,uDAAG,MAAM,CAAE,gBAAX;AACE,IAAA,OAAO,CAAC,YAAR,GAAuB,YAAvB,CADF;GAAA,MAAA;AAGE,IAAA,MAAM,CAAC,YAAP,GAAsB,YAAtB,CAHF;GALA;AAAA"
+}

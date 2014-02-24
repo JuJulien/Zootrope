@@ -1,30 +1,30 @@
 (function() {
-  var ImgA;
+  var Zootrope;
 
-  ImgA = (function() {
-    ImgA.prototype._current = 0;
+  Zootrope = (function() {
+    Zootrope.prototype._current = 0;
 
-    ImgA.prototype._duration = 0;
+    Zootrope.prototype._duration = 0;
 
-    ImgA.prototype._ended = false;
+    Zootrope.prototype._ended = false;
 
-    ImgA.prototype._paused = true;
+    Zootrope.prototype._paused = true;
 
-    ImgA.prototype._readyState = false;
+    Zootrope.prototype._readyState = false;
 
-    ImgA.prototype._reverse = false;
+    Zootrope.prototype._reverse = false;
 
-    ImgA.prototype._el = "#imga";
+    Zootrope.prototype._el = "#zootrope";
 
-    ImgA.prototype._src = '/img/imga.jpg';
+    Zootrope.prototype._src = '/img/zootrope.jpg';
 
-    ImgA.prototype._autoplay = true;
+    Zootrope.prototype._autoplay = true;
 
-    ImgA.prototype._fps = 30;
+    Zootrope.prototype._fps = 30;
 
-    ImgA.prototype._autoloop = true;
+    Zootrope.prototype._autoloop = true;
 
-    function ImgA(controller, options) {
+    function Zootrope(controller, options) {
       var _autoplay, _el, _src;
       if (options && typeof options !== "object") {
         throw new Error("the Options argument must be a valid object");
@@ -59,95 +59,95 @@
       return this;
     }
 
-    ImgA.prototype.load = function() {
+    Zootrope.prototype.load = function() {
       return this;
     };
 
-    ImgA.prototype.getCurrent = function() {
+    Zootrope.prototype.getCurrent = function() {
       return this._current;
     };
 
-    ImgA.prototype.setCurrent = function(current) {
+    Zootrope.prototype.setCurrent = function(current) {
       current = parseInt(current);
       if (!(typeof current === "number" && !isNaN(current))) {
-        throw new TypeError("ImgAController.setFps() argument expected to be a number: " + typeof current + " given (" + current + ")");
+        throw new TypeError("ZootropeController.setFps() argument expected to be a number: " + typeof current + " given (" + current + ")");
       }
       this._current = current;
       return this;
     };
 
-    ImgA.prototype.getFps = function() {
+    Zootrope.prototype.getFps = function() {
       return this._fps;
     };
 
-    ImgA.prototype.setFps = function(fps) {
+    Zootrope.prototype.setFps = function(fps) {
       fps = parseInt(fps);
       if (!(typeof fps === "number" && !isNaN(fps))) {
-        throw new TypeError("ImgAController.setFps() argument expected to be a number: " + typeof fps + " given (" + fps + ")");
+        throw new TypeError("ZootropeController.setFps() argument expected to be a number: " + typeof fps + " given (" + fps + ")");
       }
       this._fps = fps;
       return this;
     };
 
-    ImgA.prototype.getAutoloop = function() {
+    Zootrope.prototype.getAutoloop = function() {
       return this._autoloop;
     };
 
-    ImgA.prototype.setAutoloop = function(autoloop) {
+    Zootrope.prototype.setAutoloop = function(autoloop) {
       if (typeof autoloop !== "boolean") {
-        throw new TypeError("ImgAController.setAutoloop() argument expected to be a boolean: " + typeof autoloop + " given");
+        throw new TypeError("ZootropeController.setAutoloop() argument expected to be a boolean: " + typeof autoloop + " given");
       }
       this._autoloop = autoloop;
       return this;
     };
 
-    ImgA.prototype.play = function() {
+    Zootrope.prototype.play = function() {
       this.controller.play();
       return this;
     };
 
-    ImgA.prototype.stop = function() {
+    Zootrope.prototype.stop = function() {
       this.controller.stop();
       return this;
     };
 
-    ImgA.prototype.previous = function() {
+    Zootrope.prototype.previous = function() {
       this.controller.goTo(this._current - 1);
       return this;
     };
 
-    ImgA.prototype.next = function() {
+    Zootrope.prototype.next = function() {
       this.controller.goTo(this._current + 1);
       return this;
     };
 
-    ImgA.prototype.goTo = function(frame) {
+    Zootrope.prototype.goTo = function(frame) {
       this.controller.goTo(frame);
       return this;
     };
 
-    ImgA.prototype.isValidController = function(controller) {
-      if (!((controller != null ? typeof controller.play === "function" ? controller.play() : void 0 : void 0) instanceof ImgAController)) {
+    Zootrope.prototype.isValidController = function(controller) {
+      if (!((controller != null ? typeof controller.play === "function" ? controller.play() : void 0 : void 0) instanceof ZootropeController)) {
         throw new TypeError("You must provide a valid controller: it must implement a method `play()` which return the controller instance; " + (typeof (controller != null ? typeof controller.play === "function" ? controller.play() : void 0 : void 0)) + " given");
       }
-      if (!((controller != null ? typeof controller.stop === "function" ? controller.stop() : void 0 : void 0) instanceof ImgAController)) {
+      if (!((controller != null ? typeof controller.stop === "function" ? controller.stop() : void 0 : void 0) instanceof ZootropeController)) {
         throw new TypeError("You must provide a valid controller: it must implement a method `stop()` which return the controller instance; " + (typeof (controller != null ? typeof controller.stop === "function" ? controller.stop() : void 0 : void 0)) + " given");
       }
-      if (!((controller != null ? typeof controller.goTo === "function" ? controller.goTo(0) : void 0 : void 0) instanceof ImgAController)) {
+      if (!((controller != null ? typeof controller.goTo === "function" ? controller.goTo(0) : void 0 : void 0) instanceof ZootropeController)) {
         throw new TypeError("You must provide a valid controller: it must implement a method `goTo()` which return the controller instance; " + (typeof (controller != null ? typeof controller.goTo === "function" ? controller.goTo(0) : void 0 : void 0)) + " given");
       }
     };
 
-    return ImgA;
+    return Zootrope;
 
   })();
 
   if (typeof module !== "undefined" && module !== null ? module.exports : void 0) {
-    exports.ImgA = ImgA;
+    exports.Zootrope = Zootrope;
   } else {
-    window.ImgA = ImgA;
+    window.Zootrope = Zootrope;
   }
 
 }).call(this);
 
-//# sourceMappingURL=imga.js.map
+//# sourceMappingURL=zootrope.js.map

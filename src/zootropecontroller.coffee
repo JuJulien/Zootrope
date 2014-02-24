@@ -1,4 +1,4 @@
-class ImgAController
+class ZootropeController
   _current: 0
 
   constructor: (_parent) ->
@@ -13,11 +13,10 @@ class ImgAController
 
   goTo: (frame)->
     frame = 0 unless frame
-    @_current++
-    @_parent?._current = frame
+    @_current = @_parent?._current = frame
     return @
 
 if module?.exports
-  exports.ImgAController = ImgAController
+  exports.ZootropeController = ZootropeController
 else
-  window.ImgAController = ImgAController
+  window.ZootropeController = ZootropeController

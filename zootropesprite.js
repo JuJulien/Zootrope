@@ -1,26 +1,26 @@
 (function() {
-  var ImgASprite,
+  var ZootropeSprite,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  ImgASprite = (function(_super) {
-    __extends(ImgASprite, _super);
+  ZootropeSprite = (function(_super) {
+    __extends(ZootropeSprite, _super);
 
-    function ImgASprite() {
-      ImgASprite.__super__.constructor.apply(this, arguments);
+    function ZootropeSprite() {
+      ZootropeSprite.__super__.constructor.apply(this, arguments);
       return this;
     }
 
-    return ImgASprite;
+    return ZootropeSprite;
 
-  })(ImgAController);
+  })(ZootropeController);
 
   if (typeof module !== "undefined" && module !== null ? module.exports : void 0) {
-    exports.ImgASprite = ImgASprite;
+    exports.ZootropeSprite = ZootropeSprite;
   } else {
-    window.ImgASprite = ImgASprite;
+    window.ZootropeSprite = ZootropeSprite;
   }
 
 }).call(this);
 
-//# sourceMappingURL=imgasprite.js.map
+//# sourceMappingURL=zootropesprite.js.map

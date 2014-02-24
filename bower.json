@@ -1,7 +1,7 @@
 {
-  "name": "imga",
+  "name": "zootrope",
   "description": "Creates animated images (when gifs aren't enought)",
-  "main": "dist/imga.js",
+  "main": "zootrope.js",
   "version": "0.0.0",
   "dependencies": {}
 }

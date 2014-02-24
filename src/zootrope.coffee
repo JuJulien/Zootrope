@@ -1,4 +1,4 @@
-class ImgA
+class Zootrope
   # Animation properties
   _current: 0 # The current playback position in the animation (in frame)
   _duration: 0 # The duration of the entire animation (in frame)
@@ -8,8 +8,8 @@ class ImgA
   _reverse: false # switch video playback backward
 
   # Options
-  _el: "#imga" # The animation container (dom selector)
-  _src: '/img/imga.jpg' # The source files path
+  _el: "#zootrope" # The animation container (dom selector)
+  _src: '/img/zootrope.jpg' # The source files path
   _autoplay: true # The animation should start playing as soon as it is loaded
   _fps: 30 # The current frame rate
   _autoloop: true # The animation should start over again when finished
@@ -56,7 +56,7 @@ class ImgA
   setCurrent: (current) ->
     current = parseInt(current)
     unless typeof current == "number" && !isNaN(current)
-      throw new TypeError "ImgAController.setFps() argument expected to be a number: "+typeof(current)+" given (" + current+")"
+      throw new TypeError "ZootropeController.setFps() argument expected to be a number: "+typeof(current)+" given (" + current+")"
     @_current = current
     return @
 
@@ -66,7 +66,7 @@ class ImgA
   setFps: (fps) ->
     fps = parseInt(fps)
     unless typeof fps == "number" && !isNaN(fps)
-      throw new TypeError "ImgAController.setFps() argument expected to be a number: "+typeof(fps)+" given (" + fps+")"
+      throw new TypeError "ZootropeController.setFps() argument expected to be a number: "+typeof(fps)+" given (" + fps+")"
     @_fps = fps
     return @
 
@@ -75,7 +75,7 @@ class ImgA
 
   setAutoloop: (autoloop) ->
     unless typeof autoloop =="boolean"
-      throw new TypeError("ImgAController.setAutoloop() argument expected to be a boolean: "+typeof(autoloop)+" given")
+      throw new TypeError("ZootropeController.setAutoloop() argument expected to be a boolean: "+typeof(autoloop)+" given")
     @_autoloop = autoloop
     return @
 
@@ -105,16 +105,16 @@ class ImgA
     return @
 
   isValidController: (controller) ->
-    unless controller?.play?() instanceof ImgAController
+    unless controller?.play?() instanceof ZootropeController
       throw new TypeError("You must provide a valid controller: it must implement a method `play()` which return the controller instance; " + (typeof controller?.play?()) + " given")
 
-    unless controller?.stop?() instanceof ImgAController
+    unless controller?.stop?() instanceof ZootropeController
       throw new TypeError("You must provide a valid controller: it must implement a method `stop()` which return the controller instance; " + (typeof controller?.stop?()) + " given")
 
-    unless controller?.goTo?(0) instanceof ImgAController
+    unless controller?.goTo?(0) instanceof ZootropeController
       throw new TypeError("You must provide a valid controller: it must implement a method `goTo()` which return the controller instance; " + (typeof controller?.goTo?(0)) + " given")
 
 if module?.exports
-  exports.ImgA = ImgA
+  exports.Zootrope = Zootrope
 else
-  window.ImgA = ImgA
+  window.Zootrope = Zootrope

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "zootropesprite.js",
+  "sourceRoot": "src/",
+  "sources": [
+    "zootropesprite.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA,MAAA,cAAA;IAAA;mSAAA;;AAAA,EAAM;AACJ,qCAAA,CAAA;;AAAa,IAAA,wBAAA,GAAA;AACX,MAAA,iDAAA,SAAA,CAAA,CAAA;AACA,aAAO,IAAP,CAFW;IAAA,CAAb;;0BAAA;;KAD2B,mBAA7B,CAAA;;AAKA,EAAA,uDAAG,MAAM,CAAE,gBAAX;AACE,IAAA,OAAO,CAAC,cAAR,GAAyB,cAAzB,CADF;GAAA,MAAA;AAGE,IAAA,MAAM,CAAC,cAAP,GAAwB,cAAxB,CAHF;GALA;AAAA"
+}
