@@ -13,7 +13,7 @@
 
     Zootrope.prototype.el = "#zootrope";
 
-    Zootrope.prototype.autoplay = true;
+    Zootrope.prototype.autoplay = false;
 
     Zootrope.prototype.fps = 30;
 
@@ -61,7 +61,7 @@
       if (!this.controller.$el.length) {
         throw new TypeError("Couldn't find container: " + this.el);
       }
-      this.controller.initialize();
+      this.controller.initialize(this.autoplay);
       return this;
     }
 

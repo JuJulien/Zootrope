@@ -9,7 +9,7 @@ class Zootrope
 
   # Options
   el: "#zootrope" # The animation container (dom selector)
-  autoplay: true # The animation should start playing as soon as it is loaded
+  autoplay: false # The animation should start playing as soon as it is loaded
   fps: 30 # The current frame rate
   autoloop: true # The animation should start over again when finished
 
@@ -57,7 +57,7 @@ class Zootrope
     @controller.$el = $(@el)
     unless @controller.$el.length
       throw new TypeError("Couldn't find container: "+@el)
-    @controller.initialize()
+    @controller.initialize(@autoplay)
 
     return @
 

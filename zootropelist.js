@@ -28,10 +28,13 @@
       return this;
     };
 
-    ZootropeList.prototype.initialize = function() {
+    ZootropeList.prototype.initialize = function(autoplay) {
       this.clean();
       this.build();
       this.bind();
+      if (autoplay) {
+        this.play();
+      }
       return this;
     };
 

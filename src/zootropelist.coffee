@@ -17,10 +17,12 @@ class ZootropeList extends ZootropeController
     @frames[frame].show()
     return @
 
-  initialize: () ->
+  initialize: (autoplay) ->
     @clean()
     @build()
     @bind()
+    if autoplay
+      @play()
     return @
 
   bind: () ->
