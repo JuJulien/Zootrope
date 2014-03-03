@@ -51,6 +51,8 @@ module.exports = (grunt) ->
         tasks: ['coffee:build']
       html:
         files: ['examples/*']
+      css:
+        files: ['css/*']
 
     grunt.registerTask 'server', [
       'coffee:build'

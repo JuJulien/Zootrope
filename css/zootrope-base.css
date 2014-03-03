@@ -1,0 +1,3 @@
+.zootrope-element{ display: inline-block; position: relative; }
+.zootrope-frame{ display: none; }
+.zootrope-frame:first-child{ display: block; }
