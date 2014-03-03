@@ -43,6 +43,9 @@
         if (typeof options.autoplay === "boolean") {
           this.autoplay = options.autoplay;
         }
+        if (typeof options.controls === "boolean") {
+          this.controller.controls = options.controls;
+        }
         if (options.fps) {
           this.setFps(options.fps);
         }
@@ -61,7 +64,10 @@
       if (!this.controller.$el.length) {
         throw new TypeError("Couldn't find container: " + this.el);
       }
-      this.controller.initialize(this.autoplay);
+      this.controller.initialize();
+      if (this.autoplay) {
+        this.play();
+      }
       return this;
     }
 
@@ -82,15 +88,17 @@
     };
 
     Zootrope.prototype.setFps = function(fps) {
-      fps = parseInt(fps);
+      fps = parseInt(fps * 100) / 100;
       if (!(typeof fps === "number" && !isNaN(fps))) {
         throw new TypeError("ZootropeController.setFps() argument expected to be a number: " + typeof fps + " given (" + fps + ")");
       }
-      this.fps = fps;
-      this.controller.fps = fps;
-      if (!this.paused) {
-        this.pause();
-        this.play();
+      if (fps > 0) {
+        this.fps = fps;
+        this.controller.fps = fps;
+        if (!this.paused) {
+          this.pause();
+          this.play();
+        }
       }
       return this;
     };

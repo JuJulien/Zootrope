@@ -1,7 +1,6 @@
 {
   "name": "zootrope",
   "description": "Creates animated images (when gifs aren't enought)",
-  "version": "0.0.0",
   "dependencies": {},
   "devDependencies" : {
     "mocha" : "*",

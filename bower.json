@@ -2,7 +2,7 @@
   "name": "zootrope",
   "description": "Creates animated images (when gifs aren't enought)",
   "main": "zootrope.js",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "dependencies": {},
   "devDependencies": {
     "jquery": "~2.1.0"

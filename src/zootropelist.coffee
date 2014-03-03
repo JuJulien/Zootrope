@@ -1,6 +1,8 @@
 class ZootropeList extends ZootropeController
   constructor: ->
     super
+    @delta = .1
+    @controls = true
     return @
 
   goTo: (frame) ->
@@ -17,20 +19,37 @@ class ZootropeList extends ZootropeController
     @frames[frame].show()
     return @
 
-  initialize: (autoplay) ->
+  initialize: () ->
     @clean()
     @build()
-    @bind()
-    if autoplay
-      @play()
-    return @
+    if @controls
+      @bind()
+      return @
 
   bind: () ->
-    @$el.on "click", () =>
+    @$el.on "click", (e) =>
+      e.preventDefault()
+      e.stopPropagation()
       @_parent.toggle()
-    @$el.on "mousemove", (e) =>
-      if @_parent.paused
-        @goTo(parseInt(parseInt(e.offsetX)*@_duration/parseInt(@$el.width())))
+
+    @$el.on "paused stopped", (e) =>
+      @$el.on "mousemove", (e) =>
+        if @_parent.paused
+          @goTo(parseInt(parseInt(e.offsetX)*@_duration/parseInt(@$el.width())))
+    @$el.on "playing", (e) =>
+      @$el.off "mousemove"
+
+    @$el.on "playing", (e) =>
+      @$el.on "mousewheel", (e) =>
+        if e.originalEvent.wheelDeltaY
+          e.preventDefault()
+          if e.originalEvent.wheelDeltaY < 0
+            delta = @delta
+          else
+            delta = -1*@delta
+          @_parent.setFps(@fps+delta)
+    @$el.on "paused stopped", (e) =>
+      @$el.off "mousewheel"
 
   build: () ->
     if (@src instanceof Array)

@@ -46,6 +46,7 @@ class Zootrope
           @controller.src = options.src
         else throw new TypeError("options.src expected to be a string or an array: "+typeof(options.src)+" given")
       @autoplay = options.autoplay if typeof options.autoplay == "boolean"
+      @controller.controls = options.controls if typeof options.controls == "boolean"
       @setFps(options.fps) if options.fps
       @setAutoloop(options.autoloop) if options.autoloop
 
@@ -57,8 +58,10 @@ class Zootrope
     @controller.$el = $(@el)
     unless @controller.$el.length
       throw new TypeError("Couldn't find container: "+@el)
-    @controller.initialize(@autoplay)
+    @controller.initialize()
 
+    if @autoplay
+      @play()
     return @
 
   # Load sources
@@ -75,14 +78,17 @@ class Zootrope
     @fps
 
   setFps: (fps) ->
-    fps = parseInt(fps)
+    fps = parseInt(fps*100)/100
     unless typeof fps == "number" && !isNaN(fps)
       throw new TypeError "ZootropeController.setFps() argument expected to be a number: "+typeof(fps)+" given (" + fps+")"
-    @fps = fps
-    @controller.fps = fps
-    unless @paused
-      @pause()
-      @play()
+
+    if fps > 0
+      @fps = fps
+      @controller.fps = fps
+
+      unless @paused
+        @pause()
+        @play()
     return @
 
   getAutoloop: () ->

@@ -8,6 +8,8 @@
 
     function ZootropeList() {
       ZootropeList.__super__.constructor.apply(this, arguments);
+      this.delta = .1;
+      this.controls = true;
       return this;
     }
 
@@ -28,27 +30,56 @@
       return this;
     };
 
-    ZootropeList.prototype.initialize = function(autoplay) {
+    ZootropeList.prototype.initialize = function() {
       this.clean();
       this.build();
-      this.bind();
-      if (autoplay) {
-        this.play();
+      if (this.controls) {
+        this.bind();
+        return this;
       }
-      return this;
     };
 
     ZootropeList.prototype.bind = function() {
       this.$el.on("click", (function(_this) {
-        return function() {
+        return function(e) {
+          e.preventDefault();
+          e.stopPropagation();
           return _this._parent.toggle();
         };
       })(this));
-      return this.$el.on("mousemove", (function(_this) {
+      this.$el.on("paused stopped", (function(_this) {
         return function(e) {
-          if (_this._parent.paused) {
-            return _this.goTo(parseInt(parseInt(e.offsetX) * _this._duration / parseInt(_this.$el.width())));
-          }
+          return _this.$el.on("mousemove", function(e) {
+            if (_this._parent.paused) {
+              return _this.goTo(parseInt(parseInt(e.offsetX) * _this._duration / parseInt(_this.$el.width())));
+            }
+          });
+        };
+      })(this));
+      this.$el.on("playing", (function(_this) {
+        return function(e) {
+          return _this.$el.off("mousemove");
+        };
+      })(this));
+      this.$el.on("playing", (function(_this) {
+        return function(e) {
+          return _this.$el.on("mousewheel", function(e) {
+            var delta;
+            if (e.originalEvent.wheelDeltaY) {
+              e.preventDefault();
+              if (e.originalEvent.wheelDeltaY < 0) {
+                delta = _this.delta;
+              } else {
+                delta = -1 * _this.delta;
+              }
+              return _this._parent.setFps(_this.fps + delta);
+            }
+          });
+        };
+      })(this));
+      return this.$el.on("paused stopped", (function(_this) {
+        return function(e) {
+          return _this.$el.off("mousewheel");
         };
       })(this));
     };
